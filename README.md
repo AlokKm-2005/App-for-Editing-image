@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+Carbon Footprint Tracing Model
+This project develops a machine learning model to trace and predict total carbon emissions based on historical data. The model uses a simple linear regression algorithm to understand the relationship between different emission sources (e.g., coal, oil, gas) and a country's total carbon footprint.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Dataset
+The model is trained on the Global Carbon Budget (GCB) 2022 dataset, which provides historical data on carbon emissions from 1750 to 2021. The dataset includes emissions from various sources for different countries and regions, including:
 
-## Available Scripts
+Total (target variable)
 
-In the project directory, you can run:
+Coal
 
-### `npm start`
+Oil
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Gas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Cement
 
-### `npm test`
+Flaring
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Per Capita
 
-### `npm run build`
+The original dataset is named GCB2022v27_MtCO2_flat.csv.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Setup and Installation
+To run this project, you will need to have Python installed. The required libraries can be installed using pip.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Required Libraries
+Bash
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+pip install pandas scikit-learn joblib matplotlib
+How to Run the Model
+The core of the project is a Python script that handles data preprocessing, model training, and prediction. The following steps show the complete process.
 
-### `npm run eject`
+1. Data Preprocessing and Cleaning
+This step prepares the raw data by handling missing values and dropping irrelevant columns. It ensures the data is in a clean format suitable for model training.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Feature Engineering and Selection
+We define the Total emissions as the target variable (y) and use columns like Year, Coal, Oil, Gas, Cement, and Flaring as the input features (X).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Data Splitting
+The dataset is divided into a training set and a testing set (80/20 split) to allow for unbiased model evaluation.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Model Training and Saving
+A LinearRegression model is trained on the training data and then saved to a file named carbon_footprint_model.pkl using joblib.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+5. Making Predictions
+The saved model is loaded and used to make predictions on a new, unseen data point.
